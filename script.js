@@ -12,8 +12,8 @@
 
   /* ── CONFIG ──────────────────────────────────────────────────────────── */
   var NS                           = '[IDS:debug]';
-  var IDS_DEBUG_DOWNLOAD_FIELD_HTML_ID = 'ticket-field-29000862301';
-  var IDS_DEBUG_DOWNLOAD_FIELD_ID      = '29000862301';
+  var IDS_DEBUG_DOWNLOAD_FIELD_HTML_ID = 'ticket-field-56000178117';
+  var IDS_DEBUG_DOWNLOAD_FIELD_ID      = '56000178117';
   var IDS_DEBUG_DOWNLOAD_DELAY_MS      = 5000;
   /* Allow-list: only these emails can run the script. Empty array = block everyone. */
   var IDS_DEBUG_ALLOWED_EMAILS = (window.IDS_DEBUG_ALLOWED_EMAILS || []).map(function (e) {
