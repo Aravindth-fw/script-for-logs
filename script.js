@@ -1,3 +1,13 @@
+/**
+ * DEBUG SNIPPET — paste inline (or load after portal scripts). Not for production.
+ * Traces incident_dynamic_sections: UA, form snapshots, PowerSelect, workspace change.
+ * Remove when done investigating.
+ *
+ * Auto-download:
+ *   Target field set → downloads when that field triggers a PowerSelect event.
+ *   Both set to ''  → downloads after every PowerSelect event (debounced 5 s).
+ */ 
+
 (function () {
 
   /* ── CONFIG ──────────────────────────────────────────────────────────── */
@@ -5,8 +15,11 @@
   var IDS_DEBUG_DOWNLOAD_FIELD_HTML_ID = 'ticket-field-29000862301';
   var IDS_DEBUG_DOWNLOAD_FIELD_ID      = '29000862301';
   var IDS_DEBUG_DOWNLOAD_DELAY_MS      = 5000;
-  /* Run only for this portal v2 logged-in user email. Keep '' to allow all users. */
-  
+  /* Allow-list: only these emails can run the script. Empty array = block everyone. */
+  var IDS_DEBUG_ALLOWED_EMAILS = (window.IDS_DEBUG_ALLOWED_EMAILS || []).map(function (e) {
+    return String(e).trim().toLowerCase();
+  });
+
 
   /* ── STATE ───────────────────────────────────────────────────────────── */
   var logBuffer          = [];
@@ -635,10 +648,9 @@
   }
 
   function isAllowedUserNow() {
-    var allowed = trimOrEmpty(IDS_DEBUG_ALLOWED_EMAIL).toLowerCase();
-    if (!allowed) return true;
+    if (!IDS_DEBUG_ALLOWED_EMAILS.length) return false;
     var email = getLoggedInEmailV2();
-    return email === allowed;
+    return email !== '' && IDS_DEBUG_ALLOWED_EMAILS.indexOf(email) !== -1;
   }
 
   function waitForAllowedUser(cb) {
